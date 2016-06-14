@@ -47,5 +47,20 @@ var FileSystem = {
 		}, function ( e ) {
 			plus.nativeUI.alert( url+"删除失败"+e.message );
 		} );
+	},
+	downloadFile:function(serverURL,callback){
+		var dtask = plus.downloader.createDownload( serverURL, {}, function ( d, status ) {
+		// 下载完成
+		if ( status == 200 ) { 
+			plus.nativeUI.alert( "Download success: " + d.filename );
+			if(callback){
+				callback();
+			}
+		} else {
+			plus.nativeUI.alert( "Download failed: " + status ); 
+		}
+		});
+		//dtask.addEventListener( "statechanged", onStateChanged, false );
+		dtask.start();
 	}
 };
